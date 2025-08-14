@@ -82,6 +82,10 @@ yolo detect train model=yolo11s.pt data=datasets/endterm_final/data.yaml epochs=
 yolo detect train model=models/yolo11s.pt data=datasets/final/data.yaml epochs=100 imgsz=640 batch=8 device=0
 ```
 
+yolo detect train model=weights/yolo11m.pt data=avtotime3/data.yaml epochs=100 imgsz=1280 batch=-1 device=0
+yolo detect train model=weights/yolo11s.pt data=avtotime/data.yaml epochs=100 imgsz=1280 batch=-1 device=0
+
+yolo detect train model=weights/yolo11m.pt data=avtotime3/data.yaml epochs=100 imgsz=640 batch=-1 device=0
 ## Real-time Detection and Tracking
 
 ### Object Detection

@@ -5,39 +5,20 @@ import argparse
 # ----- Dataset-specific mappings -----
 # Update these dictionaries with the mapping from original label indices to unified class names for each dataset.
 
-dataset1_mapping = {  # general
-    0: "crack",
-    1: "fire_extinguisher",
-    2: "cabinet",
-    3: "hose",
-    4: "light_off",
-    5: "light_on"
+dataset1_mapping = {  # cat detection
+    0: "License_Plate",
+    1: "Vehicle"
 }
-dataset2_mapping = { # curat
-    0: 'half_working_light',
-    1: 'light_off',
-    2: 'light_on'
-}
-
-dataset3_mapping = { # moisture
-    0: 'crack',
-    1: 'moisture'
+dataset2_mapping = { # garage aug split
+    0: "Vehicle",
+    1: "License_Plate"
 }
 
 # ----- Unified class mapping -----
 # This dictionary maps unified class names to new indices.
 new_class_dict = {
-    "crack": 0,
-    "fire_extinguisher": 1,
-    "cabinet": 2,
-    "hose": 3,
-    "light_off": 4,
-    "light_on": 5,
-    "algae": 6,
-    "peeling": 7,
-    "stain": 8,
-    "moisture": 9,
-    "half_working_light": 10
+    "License_Plate": 0,
+    "Vehicle": 1
 }
 # ----- Function to convert a single label file -----
 def convert_label_file(input_path, output_path, dataset_mapping):
@@ -126,17 +107,15 @@ def process_split(dataset_path, split, output_dir, prefix, dataset_mapping):
         if not image_found:
             print(f"Warning: No image found for label file {label_file}")
 
-# ----- Main function to process three datasets -----
+# ----- Main function to process two datasets -----
 def main():
     parser = argparse.ArgumentParser(
-        description="Merge three YOLO datasets with different class mappings into one unified dataset."
+        description="Merge two YOLO datasets with different class mappings into one unified dataset."
     )
     parser.add_argument("--dataset1", type=str, required=True,
                         help="Path to the first dataset (with train, valid, test folders).")
     parser.add_argument("--dataset2", type=str, required=True,
                         help="Path to the second dataset (with train, valid, test folders).")
-    parser.add_argument("--dataset3", type=str, required=True,
-                        help="Path to the third dataset (with train, valid, test folders).")
     parser.add_argument("--output", type=str, required=True,
                         help="Path to the output merged dataset directory.")
     args = parser.parse_args()
@@ -152,10 +131,6 @@ def main():
         # Process dataset2 using its mapping.
         prefix2 = f"ds2_{split}"
         process_split(args.dataset2, split, args.output, prefix2, dataset2_mapping)
-
-        # Process dataset3 using its mapping.
-        prefix3 = f"ds3_{split}"
-        process_split(args.dataset3, split, args.output, prefix3, dataset3_mapping)
 
     # Create a unified classes file in the output directory.
     classes_file = os.path.join(args.output, "classes.txt")

@@ -10,8 +10,8 @@ from collections import defaultdict
 random.seed(42)
 
 # Source and destination paths
-SOURCE_DIR = "datasets/light5"
-DEST_DIR = "datasets/light5_split"
+SOURCE_DIR = "datasets/garage_aug"
+DEST_DIR = "datasets/garage_aug_split"
 
 # Split ratios (80/10/10)
 TRAIN_RATIO = 0.8
